@@ -160,7 +160,35 @@ init_mathjax();
 <p></p>
 <p></p>
 <p><img alt="" height="287" src="./../images/圖表.PNG" width="437"/></p>
-<p><iframe height="150" heigjt="600" src="https://dartpad.dev/embed-inline.html?id=4eccce7e1d29a211057cb645a59ac79b" width="600"><iframe></iframe></iframe></p><br /> </div>
+<p><iframe height="150" heigjt="600" src="https://dartpad.dev/embed-inline.html?id=4eccce7e1d29a211057cb645a59ac79b" width="600"><iframe></iframe></iframe></p>
+<p><iframe height="150" heigjt="600" src="https://dartpad.dev/embed-inline.html?id=fc0cf88d2da01a0dadc282e15bca5e45" width="600"><iframe></iframe></iframe></p>
+<script>
+<script>
+function getDart(dirname){
+    source = "https://dartpad.github.io/embed-dart.html?gh_owner=40823251&gh_repo=cp2019&gh_path=downloads/dart_ex/" + dirname + "&theme=dark";
+    document.getElementById("iframe").src = source ;
+}
+function getHtmlDart(dirname){
+    source = "https://dartpad.github.io/embed-html.html?gh_owner=40823251&gh_repo=cp2019&gh_path=downloads/dart_ex/" + dirname + "&theme=dark";
+document.getElementById("iframe").src = source ;
+}
+function getFlutter(dirname){
+    source = "https://dartpad.github.io/embed-flutter.html?gh_owner=mdecourse&gh_repo=cp2019&gh_path=downloads/dart_ex/" + dirname + "&theme=dark";
+document.getElementById("iframe").src = source ;
+}
+function largest(){
+document.getElementById("iframe").width = document.body.clientWidth ;
+document.getElementById("iframe").height = document.body.clientWidth*0.5 ;
+}
+function original(){
+document.getElementById("iframe").width = 800 ;
+document.getElementById("iframe").height = 600 ;
+}
+</script>
+<!-- 取 Dart 程式的按鈕 -->
+<p><button onclick="largest()">放大</button> <button onclick="original()">回復</button> <button onclick="getDart('hello')">Hello</button> <button onclick="getDart('for')">For Loop</button> <button onclick="getDart('sum')">Sum</button><button onclick="getDart('runge_kutta')">Runge-Kutta</button></p>
+<p><iframe height="600" id="iframe" src="https://dartpad.dartlang.org/embed-dart.html?gh_owner=mdecourse&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/mass_spring_damping&amp;theme=dark" width="800"></iframe></p>
+<p><img alt="" height="347" src="./../images/A2017-04-21-1.png" width="500"/><br/><br/></p><br /> </div>
         
     <!-- footer -->
       <div class="container">
