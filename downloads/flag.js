@@ -297,21 +297,18 @@
       throw H.wrapException(H.diagnoseIndexError(receiver, index));
     },
     diagnoseIndexError: function(indexable, index) {
-      var t1, $length, t2, _s5_ = "index";
+      var $length, t1, _s5_ = "index";
       if (typeof index !== "number" || Math.floor(index) !== index)
         return new P.ArgumentError(true, index, _s5_, null);
-      t1 = J.getInterceptor$asx(indexable);
-      $length = H.intTypeCheck(t1.get$length(indexable));
+      $length = H.intTypeCheck(J.get$length$asx(indexable));
       if (!(index < 0)) {
         if (typeof $length !== "number")
           return H.iae($length);
-        t2 = index >= $length;
+        t1 = index >= $length;
       } else
-        t2 = true;
-      if (t2) {
-        t1 = H.intTypeCheck($length == null ? t1.get$length(indexable) : $length);
-        return new P.IndexError(t1, true, index, _s5_, "Index out of range");
-      }
+        t1 = true;
+      if (t1)
+        return P.IndexError$(index, indexable, _s5_, null, $length);
       return P.RangeError$value(index, _s5_);
     },
     argumentErrorValue: function(object) {
@@ -337,7 +334,7 @@
       throw H.wrapException(ex);
     },
     throwConcurrentModificationError: function(collection) {
-      throw H.wrapException(new P.ConcurrentModificationError(collection));
+      throw H.wrapException(P.ConcurrentModificationError$(collection));
     },
     TypeErrorDecoder_extractPattern: function(message) {
       var match, $arguments, argumentsExpr, expr, method, receiver;
@@ -773,6 +770,13 @@
       if (typeof value === "string")
         return value;
       throw H.wrapException(H.TypeErrorImplementation$(value, "String"));
+    },
+    numTypeCheck: function(value) {
+      if (value == null)
+        return value;
+      if (typeof value === "number")
+        return value;
+      throw H.wrapException(H.TypeErrorImplementation$(value, "num"));
     },
     boolTypeCheck: function(value) {
       if (value == null)
@@ -1411,7 +1415,24 @@
       this.prototypeForTag = t0;
     },
     extractKeys: function(victim) {
-      return J.JSArray_markFixedList(H.setRuntimeTypeInfo(victim ? Object.keys(victim) : [], [null]));
+      return J.JSArray_JSArray$markFixed(victim ? Object.keys(victim) : [], null);
+    },
+    printString: function(string) {
+      if (typeof dartPrint == "function") {
+        dartPrint(string);
+        return;
+      }
+      if (typeof console == "object" && typeof console.log != "undefined") {
+        console.log(string);
+        return;
+      }
+      if (typeof window == "object")
+        return;
+      if (typeof print == "function") {
+        print(string);
+        return;
+      }
+      throw "Unable to print message: " + String(string);
     }
   },
   J = {
@@ -1457,6 +1478,9 @@
         return C.UnknownJavaScriptObject_methods;
       }
       return C.UnknownJavaScriptObject_methods;
+    },
+    JSArray_JSArray$markFixed: function(allocation, $E) {
+      return J.JSArray_markFixedList(H.setRuntimeTypeInfo(allocation, [$E]));
     },
     JSArray_markFixedList: function(list) {
       H.listTypeCheck(list);
@@ -2003,13 +2027,23 @@
       return new P.ArgumentError(true, value, $name, message);
     },
     RangeError$value: function(value, $name) {
-      return new P.RangeError(true, value, $name, "Value not in range");
+      return new P.RangeError(null, null, true, value, $name, "Value not in range");
+    },
+    IndexError$: function(invalidValue, indexable, $name, message, $length) {
+      var t1 = H.intTypeCheck($length == null ? J.get$length$asx(indexable) : $length);
+      return new P.IndexError(t1, true, invalidValue, $name, "Index out of range");
     },
     UnsupportedError$: function(message) {
       return new P.UnsupportedError(message);
     },
     UnimplementedError$: function(message) {
       return new P.UnimplementedError(message);
+    },
+    ConcurrentModificationError$: function(modifiedObject) {
+      return new P.ConcurrentModificationError(modifiedObject);
+    },
+    print: function(object) {
+      H.printString(H.S(object));
     },
     bool: function bool() {
     },
@@ -2028,12 +2062,14 @@
       _.name = t2;
       _.message = t3;
     },
-    RangeError: function RangeError(t0, t1, t2, t3) {
+    RangeError: function RangeError(t0, t1, t2, t3, t4, t5) {
       var _ = this;
-      _._hasValue = t0;
-      _.invalidValue = t1;
-      _.name = t2;
-      _.message = t3;
+      _.start = t0;
+      _.end = t1;
+      _._hasValue = t2;
+      _.invalidValue = t3;
+      _.name = t4;
+      _.message = t5;
     },
     IndexError: function IndexError(t0, t1, t2, t3, t4) {
       var _ = this;
@@ -2173,7 +2209,7 @@
       this.onData = t0;
     }
   },
-  Y = {
+  L = {
     main: function() {
       var t3,
         t1 = document,
@@ -2181,16 +2217,34 @@
       $.canvas = t2;
       t2 = H.interceptedTypeCheck((t2 && C.CanvasElement_methods).getContext$1(t2, "2d"), "$isCanvasRenderingContext2D");
       $.ctx = t2;
-      Y.drawROC(t2);
-      t2 = J.get$onClick$x(t1.querySelector("#roc"));
+      L.drawROC(t2);
+      t2 = J.get$onClick$x(t1.querySelector("#germany"));
       t3 = H.getTypeArgumentByIndex(t2, 0);
-      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new Y.main_closure(), {func: 1, ret: -1, args: [t3]}), false, t3);
+      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new L.main_closure(), {func: 1, ret: -1, args: [t3]}), false, t3);
+      t3 = J.get$onClick$x(t1.querySelector("#netherlands"));
+      t2 = H.getTypeArgumentByIndex(t3, 0);
+      W._EventStreamSubscription$(t3._target, t3._eventType, H.functionTypeCheck(new L.main_closure0(), {func: 1, ret: -1, args: [t2]}), false, t2);
+      t2 = J.get$onClick$x(t1.querySelector("#uk"));
+      t3 = H.getTypeArgumentByIndex(t2, 0);
+      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new L.main_closure1(), {func: 1, ret: -1, args: [t3]}), false, t3);
+      t3 = J.get$onClick$x(t1.querySelector("#russia"));
+      t2 = H.getTypeArgumentByIndex(t3, 0);
+      W._EventStreamSubscription$(t3._target, t3._eventType, H.functionTypeCheck(new L.main_closure2(), {func: 1, ret: -1, args: [t2]}), false, t2);
+      t2 = J.get$onClick$x(t1.querySelector("#france"));
+      t3 = H.getTypeArgumentByIndex(t2, 0);
+      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new L.main_closure3(), {func: 1, ret: -1, args: [t3]}), false, t3);
+      t3 = J.get$onClick$x(t1.querySelector("#roc"));
+      t2 = H.getTypeArgumentByIndex(t3, 0);
+      W._EventStreamSubscription$(t3._target, t3._eventType, H.functionTypeCheck(new L.main_closure4(), {func: 1, ret: -1, args: [t2]}), false, t2);
+      t2 = J.get$onClick$x(t1.querySelector("#jp"));
+      t3 = H.getTypeArgumentByIndex(t2, 0);
+      W._EventStreamSubscription$(t2._target, t2._eventType, H.functionTypeCheck(new L.main_closure5(), {func: 1, ret: -1, args: [t3]}), false, t3);
       t3 = J.get$onClick$x(t1.querySelector("#usa"));
       t2 = H.getTypeArgumentByIndex(t3, 0);
-      W._EventStreamSubscription$(t3._target, t3._eventType, H.functionTypeCheck(new Y.main_closure0(), {func: 1, ret: -1, args: [t2]}), false, t2);
+      W._EventStreamSubscription$(t3._target, t3._eventType, H.functionTypeCheck(new L.main_closure6(), {func: 1, ret: -1, args: [t2]}), false, t2);
       t1 = J.get$onClick$x(t1.querySelector("#button"));
       t2 = H.getTypeArgumentByIndex(t1, 0);
-      W._EventStreamSubscription$(t1._target, t1._eventType, H.functionTypeCheck(new Y.main_closure1(), {func: 1, ret: -1, args: [t2]}), false, t2);
+      W._EventStreamSubscription$(t1._target, t1._eventType, H.functionTypeCheck(new L.main_closure7(), {func: 1, ret: -1, args: [t2]}), false, t2);
     },
     drawROC: function(ctx) {
       var angle, i, t1, t2, toX, toY;
@@ -2202,12 +2256,12 @@
       ctx.beginPath();
       for (angle = 0, i = 0; i < 25; ++i) {
         angle += 2.6179938779914944;
-        t1 = $.$get$circle_x();
+        t1 = $.$get$circle_a();
         t2 = Math.cos(angle);
         if (typeof t1 !== "number")
           return t1.$add();
         toX = t1 + t2 * 37.5;
-        t2 = $.$get$circle_y();
+        t2 = $.$get$circle_b();
         t1 = Math.sin(angle);
         if (typeof t2 !== "number")
           return t2.$add();
@@ -2221,24 +2275,96 @@
       ctx.fillStyle = "#fff";
       ctx.fill();
       ctx.beginPath();
-      ctx.arc($.$get$circle_x(), $.$get$circle_y(), 21.25, 0, 6.283185307179586, true);
+      ctx.arc($.$get$circle_a(), $.$get$circle_b(), 21.25, 0, 6.283185307179586, true);
       ctx.closePath();
       ctx.fillStyle = "rgb(0, 0, 149)";
       ctx.fill();
       ctx.beginPath();
-      ctx.arc($.$get$circle_x(), $.$get$circle_y(), 18.75, 0, 6.283185307179586, true);
+      ctx.arc($.$get$circle_a(), $.$get$circle_b(), 18.75, 0, 6.283185307179586, true);
       ctx.closePath();
       ctx.fillStyle = "#fff";
       ctx.fill();
+      ctx.clearRect(300, 0, 200, 300);
+    },
+    fivePointStar: function(x, y, r, solid, theta, color) {
+      var t1, i, t2, outerPoints = [], innerPoints = [],
+        innerR = r * Math.cos(1.2566370614359172) / Math.cos(0.6283185307179586);
+      P.print("\u6e96\u5099\u756b\u4e00\u500b\u4f4d\u65bc (" + H.S(x) + ", " + H.S(y) + "), \u534a\u5f91 " + H.S(r) + ", \u5be6\u5fc3\u70ba true, \u984f\u8272\u70ba " + color + " \u7684\u4e94\u8292\u661f");
+      $.ctx.beginPath();
+      for (t1 = theta * 0.017453292519943295, i = 0; i <= 5; ++i) {
+        t2 = 1.2566370614359172 * i + t1;
+        outerPoints.push([x + r * Math.sin(t2), y - r * Math.cos(t2)]);
+        t2 -= 0.6283185307179586;
+        innerPoints.push([x + innerR * Math.sin(t2), y - innerR * Math.cos(t2)]);
+      }
+      P.print(outerPoints);
+      t1 = $.ctx;
+      if (0 >= outerPoints.length)
+        return H.ioore(outerPoints, 0);
+      t2 = outerPoints[0];
+      t1.moveTo(t2[0], t2[1]);
+      for (i = 1; i < 5;) {
+        t1 = $.ctx;
+        if (i >= innerPoints.length)
+          return H.ioore(innerPoints, i);
+        t2 = innerPoints[i];
+        t1.lineTo(t2[0], t2[1]);
+        t2 = $.ctx;
+        if (i >= outerPoints.length)
+          return H.ioore(outerPoints, i);
+        t1 = outerPoints[i];
+        t2.lineTo(t1[0], t1[1]);
+        t1 = $.ctx;
+        ++i;
+        if (i >= innerPoints.length)
+          return H.ioore(innerPoints, i);
+        t2 = innerPoints[i];
+        t1.lineTo(t2[0], t2[1]);
+      }
+      $.ctx.closePath();
+      t1 = $.ctx;
+      t1.fillStyle = color;
+      t1.fill();
+    },
+    drawUSA: function(ctx) {
+      var i, t1, j;
+      ctx.clearRect(0, 0, 380, 200);
+      ctx.fillStyle = "rgb(191,10,48)";
+      ctx.fillRect(0, 0, 380, 200);
+      ctx.fillStyle = "rgb(255, 255, 255)";
+      for (i = 1; i <= 11; i += 2)
+        ctx.fillRect(0, 15.38 * i, 380, 15.38);
+      ctx.fillStyle = "rgb(0,40,104)";
+      ctx.fillRect(0, 0, 152, 107.7);
+      for (i = 0; i < 6; ++i)
+        for (t1 = 12.66 + i * 2 * 12.66, j = 0; j <= 8; ++j)
+          if (j % 2 === 0)
+            L.fivePointStar(t1, 10.76 + j * 10.76, 6.16, true, 0, "white");
+      for (i = 0; i < 5; ++i)
+        for (t1 = 25.32 + i * 2 * 12.66, j = 0; j <= 6; ++j)
+          if (j % 2 === 0)
+            L.fivePointStar(t1, 21.52 + j * 10.76, 6.16, true, 0, "white");
     },
     main_closure: function main_closure() {
     },
     main_closure0: function main_closure0() {
     },
     main_closure1: function main_closure1() {
+    },
+    main_closure2: function main_closure2() {
+    },
+    main_closure3: function main_closure3() {
+    },
+    main_closure4: function main_closure4() {
+    },
+    main_closure5: function main_closure5() {
+    },
+    main_closure6: function main_closure6() {
+    },
+    main_closure7: function main_closure7() {
     }
   };
-  var holders = [C, H, J, P, W, Y];
+  var holders = [C, H, J, P, W, L];
   hunkHelpers.setFunctionNamesIfNecessary(holders);
   var $ = {};
   H.JS_CONST.prototype = {};
@@ -2515,13 +2641,13 @@
     call$0: function() {
       this.callback.call$0();
     },
-    $signature: 0
+    $signature: 1
   };
   P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback.prototype = {
     call$0: function() {
       this.callback.call$0();
     },
-    $signature: 0
+    $signature: 1
   };
   P._TimerImpl.prototype = {
     _TimerImpl$2: function(milliseconds, callback) {
@@ -2535,7 +2661,7 @@
     call$0: function() {
       this.callback.call$0();
     },
-    $signature: 1
+    $signature: 2
   };
   P._FutureListener.prototype = {
     matchesErrorTest$1: function(asyncError) {
@@ -2673,13 +2799,13 @@
     call$0: function() {
       P._Future__propagateToListeners(this.$this, this.listener);
     },
-    $signature: 0
+    $signature: 1
   };
   P._Future__prependListeners_closure.prototype = {
     call$0: function() {
       P._Future__propagateToListeners(this.$this, this._box_0.listeners);
     },
-    $signature: 0
+    $signature: 1
   };
   P._Future__chainForeignFuture_closure.prototype = {
     call$1: function(value) {
@@ -2703,7 +2829,7 @@
     call$0: function() {
       this.target._completeError$2(this.e, this.s);
     },
-    $signature: 0
+    $signature: 1
   };
   P._Future__propagateToListeners_handleWhenCompleteCallback.prototype = {
     call$0: function() {
@@ -2744,7 +2870,7 @@
         t1.listenerHasError = false;
       }
     },
-    $signature: 1
+    $signature: 2
   };
   P._Future__propagateToListeners_handleWhenCompleteCallback_closure.prototype = {
     call$1: function(_) {
@@ -2769,7 +2895,7 @@
         t1.listenerHasError = true;
       }
     },
-    $signature: 1
+    $signature: 2
   };
   P._Future__propagateToListeners_handleError.prototype = {
     call$0: function() {
@@ -2796,7 +2922,7 @@
         t4.listenerHasError = true;
       }
     },
-    $signature: 1
+    $signature: 2
   };
   P._AsyncCallbackEntry.prototype = {};
   P.Stream.prototype = {
@@ -2824,7 +2950,7 @@
     call$0: function() {
       this.future._complete$1(this._box_0.count);
     },
-    $signature: 0
+    $signature: 1
   };
   P.StreamSubscription.prototype = {};
   P.AsyncError.prototype = {
@@ -2847,7 +2973,7 @@
       error.stack = t2.toString$0(0);
       throw error;
     },
-    $signature: 0
+    $signature: 1
   };
   P._RootZone.prototype = {
     runGuarded$1: function(f) {
@@ -2924,7 +3050,7 @@
     call$0: function() {
       return this.$this.runGuarded$1(this.f);
     },
-    $signature: 1
+    $signature: 2
   };
   P._RootZone_bindUnaryCallbackGuarded_closure.prototype = {
     call$1: function(arg) {
@@ -2974,7 +3100,21 @@
       return "RangeError";
     },
     get$_errorExplanation: function() {
-      return "";
+      var explanation, t2,
+        t1 = this.start;
+      if (t1 == null) {
+        t1 = this.end;
+        explanation = t1 != null ? ": Not less than or equal to " + H.S(t1) : "";
+      } else {
+        t2 = this.end;
+        if (t2 == null)
+          explanation = ": Not greater than or equal to " + H.S(t1);
+        else if (t2 > t1)
+          explanation = ": Not in range " + H.S(t1) + ".." + H.S(t2) + ", inclusive";
+        else
+          explanation = t2 < t1 ? ": Valid value range is empty" : ": Only valid value is " + H.S(t1);
+      }
+      return explanation;
     }
   };
   P.IndexError.prototype = {
@@ -3131,33 +3271,192 @@
       return new W._ElementEventStreamImpl(receiver, "click", false, [W.MouseEvent]);
     }
   };
-  Y.main_closure.prototype = {
-    call$1: function(e) {
-      H.interceptedTypeCheck(e, "$isMouseEvent");
-      return Y.drawROC($.ctx);
-    },
-    $signature: 2
-  };
-  Y.main_closure0.prototype = {
+  L.main_closure.prototype = {
     call$1: function(e) {
       var t1;
       H.interceptedTypeCheck(e, "$isMouseEvent");
       t1 = $.ctx;
       t1.clearRect(0, 0, 300, 200);
-      t1.font = "30px Arial";
-      t1.strokeStyle = "rgb(255, 0, 0)";
-      t1.strokeText("\u8acb\u756b\u51fa\u7f8e\u570b\u570b\u65d7", 50, 75);
+      t1.fillStyle = "rgb(255,204,0)";
+      t1.fillRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(221,0,0)";
+      t1.fillRect(0, 0, 300, 133.33333333333334);
+      t1.fillStyle = "rgb(0,0,0)";
+      t1.fillRect(0, 0, 300, 66.66666666666667);
+      t1.clearRect(300, 0, 200, 300);
       return;
     },
-    $signature: 2
+    $signature: 0
   };
-  Y.main_closure1.prototype = {
+  L.main_closure0.prototype = {
+    call$1: function(e) {
+      var t1;
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = $.ctx;
+      t1.clearRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(174,28,40)";
+      t1.fillRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(255, 255, 255)";
+      t1.fillRect(0, 66.66666666666667, 300, 66.66666666666667);
+      t1.fillStyle = "rgb(33, 70, 139)";
+      t1.fillRect(0, 133.33333333333334, 300, 66.66666666666667);
+      t1.clearRect(300, 0, 200, 300);
+      return;
+    },
+    $signature: 0
+  };
+  L.main_closure1.prototype = {
+    call$1: function(e) {
+      var t1,
+        _s18_ = "rgb(255, 255, 255)",
+        _s4_ = "#fff",
+        _s16_ = "rgb(207, 20, 43)";
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = $.ctx;
+      t1.clearRect(0, 0, 300, 150);
+      t1.fillStyle = "rgb(0, 36, 125)";
+      t1.fillRect(0, 0, 300, 150);
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(0.4537856055185257);
+      t1.fillStyle = _s18_;
+      t1.fillRect(0, -13.5, 400, 30);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(-0.4537856055185257);
+      t1.fillStyle = _s18_;
+      t1.fillRect(-70, 118, 400, 30);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(0.4537856055185257);
+      t1.fillStyle = _s16_;
+      t1.fillRect(-50, 0, 200, 10);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(0.4537856055185257);
+      t1.fillStyle = _s16_;
+      t1.fillRect(190, -7, 200, 10);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(-0.4537856055185257);
+      t1.fillStyle = _s16_;
+      t1.fillRect(-120, 132.5, 200, 10);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.beginPath();
+      t1.save();
+      t1.translate(0, 0);
+      t1.rotate(-0.4537856055185257);
+      t1.fillStyle = _s16_;
+      t1.fillRect(120, 123.5, 200, 10);
+      t1.restore();
+      t1.fillStyle = _s4_;
+      t1.fill();
+      t1.fillStyle = _s18_;
+      t1.fillRect(125, 0, 50, 150);
+      t1.fillStyle = _s18_;
+      t1.fillRect(0, 50, 300, 50);
+      t1.fillStyle = _s16_;
+      t1.fillRect(0, 60, 300, 30);
+      t1.fillStyle = _s16_;
+      t1.fillRect(135, 0, 30, 150);
+      t1.clearRect(300, 0, 200, 300);
+      t1.clearRect(0, 150, 400, 300);
+      return;
+    },
+    $signature: 0
+  };
+  L.main_closure2.prototype = {
+    call$1: function(e) {
+      var t1;
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = $.ctx;
+      t1.clearRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(225,37,29)";
+      t1.fillRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(0,61,165)";
+      t1.fillRect(0, 0, 300, 133.33333333333334);
+      t1.fillStyle = "rgb(255,255,255)";
+      t1.fillRect(0, 0, 300, 66.66666666666667);
+      t1.clearRect(300, 0, 200, 300);
+      return;
+    },
+    $signature: 0
+  };
+  L.main_closure3.prototype = {
+    call$1: function(e) {
+      var t1;
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = $.ctx;
+      t1.clearRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(250,60,50)";
+      t1.fillRect(0, 0, 300, 200);
+      t1.fillStyle = "rgb(255, 255, 255)";
+      t1.fillRect(0, 0, 189, 200);
+      t1.fillStyle = "rgb(0,85,164)";
+      t1.fillRect(0, 0, 90, 200);
+      t1.clearRect(300, 0, 200, 300);
+      return;
+    },
+    $signature: 0
+  };
+  L.main_closure4.prototype = {
     call$1: function(e) {
       H.interceptedTypeCheck(e, "$isMouseEvent");
-      $.ctx.clearRect(0, 0, 300, 200);
+      return L.drawROC($.ctx);
+    },
+    $signature: 0
+  };
+  L.main_closure5.prototype = {
+    call$1: function(e) {
+      var t1;
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      t1 = $.ctx;
+      t1.clearRect(0, 0, 300, 200);
+      t1.fillStyle = "#fff";
+      t1.fillRect(0, 0, 300, 200);
+      t1.beginPath();
+      t1.arc($.$get$circle_x(), $.$get$circle_y(), 60, 0, 6.283185307179586, true);
+      t1.closePath();
+      t1.fillStyle = "rgb(188,0,45)";
+      t1.fill();
+      t1.clearRect(300, 0, 200, 300);
       return;
     },
-    $signature: 2
+    $signature: 0
+  };
+  L.main_closure6.prototype = {
+    call$1: function(e) {
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      return L.drawUSA($.ctx);
+    },
+    $signature: 0
+  };
+  L.main_closure7.prototype = {
+    call$1: function(e) {
+      H.interceptedTypeCheck(e, "$isMouseEvent");
+      $.ctx.clearRect(0, 0, 380, 200);
+      return;
+    },
+    $signature: 0
   };
   (function aliases() {
     var _ = J.Interceptor.prototype;
@@ -3171,7 +3470,7 @@
     _static_1(P, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 3);
     _static_1(P, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 3);
     _static_1(P, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 3);
-    _static_0(P, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 1);
+    _static_0(P, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 2);
   })();
   (function inheritance() {
     var _inherit = hunkHelpers.inherit,
@@ -3183,7 +3482,7 @@
     _inherit(J.JSUnmodifiableArray, J.JSArray);
     _inheritMany(J.JSNumber, [J.JSInt, J.JSDouble]);
     _inheritMany(P.Error, [H.NullError, H.JsNoSuchMethodError, H.UnknownJsTypeError, H.TypeErrorImplementation, H.RuntimeError, P.AssertionError, P.NullThrownError, P.ArgumentError, P.UnsupportedError, P.UnimplementedError, P.ConcurrentModificationError, P.CyclicInitializationError]);
-    _inheritMany(H.Closure, [H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_length_closure, P.Stream_length_closure0, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, W._EventStreamSubscription_closure, Y.main_closure, Y.main_closure0, Y.main_closure1]);
+    _inheritMany(H.Closure, [H.unwrapException_saveStackTrace, H.TearOffClosure, H.initHooks_closure, H.initHooks_closure0, H.initHooks_closure1, P._AsyncRun__initializeScheduleImmediate_internalCallback, P._AsyncRun__initializeScheduleImmediate_closure, P._AsyncRun__scheduleImmediateJsOverride_internalCallback, P._AsyncRun__scheduleImmediateWithSetImmediate_internalCallback, P._TimerImpl_internalCallback, P._Future__addListener_closure, P._Future__prependListeners_closure, P._Future__chainForeignFuture_closure, P._Future__chainForeignFuture_closure0, P._Future__chainForeignFuture_closure1, P._Future__propagateToListeners_handleWhenCompleteCallback, P._Future__propagateToListeners_handleWhenCompleteCallback_closure, P._Future__propagateToListeners_handleValueCallback, P._Future__propagateToListeners_handleError, P.Stream_length_closure, P.Stream_length_closure0, P._rootHandleUncaughtError_closure, P._RootZone_bindCallback_closure, P._RootZone_bindCallbackGuarded_closure, P._RootZone_bindUnaryCallbackGuarded_closure, W._EventStreamSubscription_closure, L.main_closure, L.main_closure0, L.main_closure1, L.main_closure2, L.main_closure3, L.main_closure4, L.main_closure5, L.main_closure6, L.main_closure7]);
     _inheritMany(H.TearOffClosure, [H.StaticClosure, H.BoundClosure]);
     _inherit(H._AssertionError, P.AssertionError);
     _inherit(P._RootZone, P._Zone);
@@ -3330,7 +3629,7 @@
 ;
     C.C__RootZone = new P._RootZone();
   })();
-  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: P.Null}, {func: 1, ret: -1}, {func: 1, ret: -1, args: [W.MouseEvent]}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, args: [,]}, {func: 1, ret: P.Null, args: [,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, args: [W.Event]}], interceptorsByTag: null, leafTags: null};
+  var init = {mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List"}, mangledNames: {}, getTypeFromName: getGlobalFromName, metadata: [], types: [{func: 1, ret: -1, args: [W.MouseEvent]}, {func: 1, ret: P.Null}, {func: 1, ret: -1}, {func: 1, ret: -1, args: [{func: 1, ret: -1}]}, {func: 1, args: [,]}, {func: 1, ret: P.Null, args: [,]}, {func: 1, args: [, P.String]}, {func: 1, args: [P.String]}, {func: 1, ret: P.Null, args: [{func: 1, ret: -1}]}, {func: 1, ret: P.Null, args: [,], opt: [P.StackTrace]}, {func: 1, ret: [P._Future,,], args: [,]}, {func: 1, args: [W.Event]}], interceptorsByTag: null, leafTags: null};
   (function staticFields() {
     $.Closure_functionCounter = 0;
     $.BoundClosure_selfFieldNameCache = null;
@@ -3427,9 +3726,15 @@
       return P._AsyncRun__initializeScheduleImmediate();
     });
     _lazy($, "circle_x", "$get$circle_x", function() {
-      return 75;
+      return 150;
     });
     _lazy($, "circle_y", "$get$circle_y", function() {
+      return 100;
+    });
+    _lazy($, "circle_a", "$get$circle_a", function() {
+      return 75;
+    });
+    _lazy($, "circle_b", "$get$circle_b", function() {
       return 50;
     });
   })();
@@ -3456,8 +3761,8 @@
       }
       init.dispatchPropertyName = init.getIsolateTag("dispatch_record");
     }();
-    hunkHelpers.setOrUpdateInterceptorsByTag({CanvasGradient: J.Interceptor, CanvasPattern: J.Interceptor, DOMError: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, WebGLRenderingContext: J.Interceptor, WebGL2RenderingContext: J.Interceptor, SQLError: J.Interceptor, HTMLAudioElement: W.HtmlElement, HTMLBRElement: W.HtmlElement, HTMLBaseElement: W.HtmlElement, HTMLBodyElement: W.HtmlElement, HTMLButtonElement: W.HtmlElement, HTMLContentElement: W.HtmlElement, HTMLDListElement: W.HtmlElement, HTMLDataElement: W.HtmlElement, HTMLDataListElement: W.HtmlElement, HTMLDetailsElement: W.HtmlElement, HTMLDialogElement: W.HtmlElement, HTMLDivElement: W.HtmlElement, HTMLEmbedElement: W.HtmlElement, HTMLFieldSetElement: W.HtmlElement, HTMLHRElement: W.HtmlElement, HTMLHeadElement: W.HtmlElement, HTMLHeadingElement: W.HtmlElement, HTMLHtmlElement: W.HtmlElement, HTMLIFrameElement: W.HtmlElement, HTMLImageElement: W.HtmlElement, HTMLInputElement: W.HtmlElement, HTMLLIElement: W.HtmlElement, HTMLLabelElement: W.HtmlElement, HTMLLegendElement: W.HtmlElement, HTMLLinkElement: W.HtmlElement, HTMLMapElement: W.HtmlElement, HTMLMediaElement: W.HtmlElement, HTMLMenuElement: W.HtmlElement, HTMLMetaElement: W.HtmlElement, HTMLMeterElement: W.HtmlElement, HTMLModElement: W.HtmlElement, HTMLOListElement: W.HtmlElement, HTMLObjectElement: W.HtmlElement, HTMLOptGroupElement: W.HtmlElement, HTMLOptionElement: W.HtmlElement, HTMLOutputElement: W.HtmlElement, HTMLParagraphElement: W.HtmlElement, HTMLParamElement: W.HtmlElement, HTMLPictureElement: W.HtmlElement, HTMLPreElement: W.HtmlElement, HTMLProgressElement: W.HtmlElement, HTMLQuoteElement: W.HtmlElement, HTMLScriptElement: W.HtmlElement, HTMLShadowElement: W.HtmlElement, HTMLSlotElement: W.HtmlElement, HTMLSourceElement: W.HtmlElement, HTMLSpanElement: W.HtmlElement, HTMLStyleElement: W.HtmlElement, HTMLTableCaptionElement: W.HtmlElement, HTMLTableCellElement: W.HtmlElement, HTMLTableDataCellElement: W.HtmlElement, HTMLTableHeaderCellElement: W.HtmlElement, HTMLTableColElement: W.HtmlElement, HTMLTableElement: W.HtmlElement, HTMLTableRowElement: W.HtmlElement, HTMLTableSectionElement: W.HtmlElement, HTMLTemplateElement: W.HtmlElement, HTMLTextAreaElement: W.HtmlElement, HTMLTimeElement: W.HtmlElement, HTMLTitleElement: W.HtmlElement, HTMLTrackElement: W.HtmlElement, HTMLUListElement: W.HtmlElement, HTMLUnknownElement: W.HtmlElement, HTMLVideoElement: W.HtmlElement, HTMLDirectoryElement: W.HtmlElement, HTMLFontElement: W.HtmlElement, HTMLFrameElement: W.HtmlElement, HTMLFrameSetElement: W.HtmlElement, HTMLMarqueeElement: W.HtmlElement, HTMLElement: W.HtmlElement, HTMLAnchorElement: W.AnchorElement, HTMLAreaElement: W.AreaElement, HTMLCanvasElement: W.CanvasElement, CanvasRenderingContext2D: W.CanvasRenderingContext2D, DOMException: W.DomException, Element: W.Element, AbortPaymentEvent: W.Event, AnimationEvent: W.Event, AnimationPlaybackEvent: W.Event, ApplicationCacheErrorEvent: W.Event, BackgroundFetchClickEvent: W.Event, BackgroundFetchEvent: W.Event, BackgroundFetchFailEvent: W.Event, BackgroundFetchedEvent: W.Event, BeforeInstallPromptEvent: W.Event, BeforeUnloadEvent: W.Event, BlobEvent: W.Event, CanMakePaymentEvent: W.Event, ClipboardEvent: W.Event, CloseEvent: W.Event, CustomEvent: W.Event, DeviceMotionEvent: W.Event, DeviceOrientationEvent: W.Event, ErrorEvent: W.Event, ExtendableEvent: W.Event, ExtendableMessageEvent: W.Event, FetchEvent: W.Event, FontFaceSetLoadEvent: W.Event, ForeignFetchEvent: W.Event, GamepadEvent: W.Event, HashChangeEvent: W.Event, InstallEvent: W.Event, MediaEncryptedEvent: W.Event, MediaKeyMessageEvent: W.Event, MediaQueryListEvent: W.Event, MediaStreamEvent: W.Event, MediaStreamTrackEvent: W.Event, MessageEvent: W.Event, MIDIConnectionEvent: W.Event, MIDIMessageEvent: W.Event, MutationEvent: W.Event, NotificationEvent: W.Event, PageTransitionEvent: W.Event, PaymentRequestEvent: W.Event, PaymentRequestUpdateEvent: W.Event, PopStateEvent: W.Event, PresentationConnectionAvailableEvent: W.Event, PresentationConnectionCloseEvent: W.Event, ProgressEvent: W.Event, PromiseRejectionEvent: W.Event, PushEvent: W.Event, RTCDataChannelEvent: W.Event, RTCDTMFToneChangeEvent: W.Event, RTCPeerConnectionIceEvent: W.Event, RTCTrackEvent: W.Event, SecurityPolicyViolationEvent: W.Event, SensorErrorEvent: W.Event, SpeechRecognitionError: W.Event, SpeechRecognitionEvent: W.Event, SpeechSynthesisEvent: W.Event, StorageEvent: W.Event, SyncEvent: W.Event, TrackEvent: W.Event, TransitionEvent: W.Event, WebKitTransitionEvent: W.Event, VRDeviceEvent: W.Event, VRDisplayEvent: W.Event, VRSessionEvent: W.Event, MojoInterfaceRequestEvent: W.Event, ResourceProgressEvent: W.Event, USBConnectionEvent: W.Event, IDBVersionChangeEvent: W.Event, AudioProcessingEvent: W.Event, OfflineAudioCompletionEvent: W.Event, WebGLContextEvent: W.Event, Event: W.Event, InputEvent: W.Event, EventTarget: W.EventTarget, HTMLFormElement: W.FormElement, MouseEvent: W.MouseEvent, DragEvent: W.MouseEvent, PointerEvent: W.MouseEvent, WheelEvent: W.MouseEvent, Document: W.Node, HTMLDocument: W.Node, Node: W.Node, HTMLSelectElement: W.SelectElement, CompositionEvent: W.UIEvent, FocusEvent: W.UIEvent, KeyboardEvent: W.UIEvent, TextEvent: W.UIEvent, TouchEvent: W.UIEvent, UIEvent: W.UIEvent, SVGAElement: P.SvgElement, SVGAnimateElement: P.SvgElement, SVGAnimateMotionElement: P.SvgElement, SVGAnimateTransformElement: P.SvgElement, SVGAnimationElement: P.SvgElement, SVGCircleElement: P.SvgElement, SVGClipPathElement: P.SvgElement, SVGDefsElement: P.SvgElement, SVGDescElement: P.SvgElement, SVGDiscardElement: P.SvgElement, SVGEllipseElement: P.SvgElement, SVGFEBlendElement: P.SvgElement, SVGFEColorMatrixElement: P.SvgElement, SVGFEComponentTransferElement: P.SvgElement, SVGFECompositeElement: P.SvgElement, SVGFEConvolveMatrixElement: P.SvgElement, SVGFEDiffuseLightingElement: P.SvgElement, SVGFEDisplacementMapElement: P.SvgElement, SVGFEDistantLightElement: P.SvgElement, SVGFEFloodElement: P.SvgElement, SVGFEFuncAElement: P.SvgElement, SVGFEFuncBElement: P.SvgElement, SVGFEFuncGElement: P.SvgElement, SVGFEFuncRElement: P.SvgElement, SVGFEGaussianBlurElement: P.SvgElement, SVGFEImageElement: P.SvgElement, SVGFEMergeElement: P.SvgElement, SVGFEMergeNodeElement: P.SvgElement, SVGFEMorphologyElement: P.SvgElement, SVGFEOffsetElement: P.SvgElement, SVGFEPointLightElement: P.SvgElement, SVGFESpecularLightingElement: P.SvgElement, SVGFESpotLightElement: P.SvgElement, SVGFETileElement: P.SvgElement, SVGFETurbulenceElement: P.SvgElement, SVGFilterElement: P.SvgElement, SVGForeignObjectElement: P.SvgElement, SVGGElement: P.SvgElement, SVGGeometryElement: P.SvgElement, SVGGraphicsElement: P.SvgElement, SVGImageElement: P.SvgElement, SVGLineElement: P.SvgElement, SVGLinearGradientElement: P.SvgElement, SVGMarkerElement: P.SvgElement, SVGMaskElement: P.SvgElement, SVGMetadataElement: P.SvgElement, SVGPathElement: P.SvgElement, SVGPatternElement: P.SvgElement, SVGPolygonElement: P.SvgElement, SVGPolylineElement: P.SvgElement, SVGRadialGradientElement: P.SvgElement, SVGRectElement: P.SvgElement, SVGScriptElement: P.SvgElement, SVGSetElement: P.SvgElement, SVGStopElement: P.SvgElement, SVGStyleElement: P.SvgElement, SVGElement: P.SvgElement, SVGSVGElement: P.SvgElement, SVGSwitchElement: P.SvgElement, SVGSymbolElement: P.SvgElement, SVGTSpanElement: P.SvgElement, SVGTextContentElement: P.SvgElement, SVGTextElement: P.SvgElement, SVGTextPathElement: P.SvgElement, SVGTextPositioningElement: P.SvgElement, SVGTitleElement: P.SvgElement, SVGUseElement: P.SvgElement, SVGViewElement: P.SvgElement, SVGGradientElement: P.SvgElement, SVGComponentTransferFunctionElement: P.SvgElement, SVGFEDropShadowElement: P.SvgElement, SVGMPathElement: P.SvgElement});
-    hunkHelpers.setOrUpdateLeafTags({CanvasGradient: true, CanvasPattern: true, DOMError: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, WebGLRenderingContext: true, WebGL2RenderingContext: true, SQLError: true, HTMLAudioElement: true, HTMLBRElement: true, HTMLBaseElement: true, HTMLBodyElement: true, HTMLButtonElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLInputElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLOListElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTemplateElement: true, HTMLTextAreaElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLCanvasElement: true, CanvasRenderingContext2D: true, DOMException: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, ProgressEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, ResourceProgressEvent: true, USBConnectionEvent: true, IDBVersionChangeEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, EventTarget: false, HTMLFormElement: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, Document: true, HTMLDocument: true, Node: false, HTMLSelectElement: true, CompositionEvent: true, FocusEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGScriptElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true});
+    hunkHelpers.setOrUpdateInterceptorsByTag({CanvasGradient: J.Interceptor, CanvasPattern: J.Interceptor, DOMError: J.Interceptor, MediaError: J.Interceptor, NavigatorUserMediaError: J.Interceptor, OverconstrainedError: J.Interceptor, PositionError: J.Interceptor, SVGAnimatedNumberList: J.Interceptor, WebGLRenderingContext: J.Interceptor, WebGL2RenderingContext: J.Interceptor, SQLError: J.Interceptor, HTMLAudioElement: W.HtmlElement, HTMLBRElement: W.HtmlElement, HTMLBaseElement: W.HtmlElement, HTMLBodyElement: W.HtmlElement, HTMLButtonElement: W.HtmlElement, HTMLContentElement: W.HtmlElement, HTMLDListElement: W.HtmlElement, HTMLDataElement: W.HtmlElement, HTMLDataListElement: W.HtmlElement, HTMLDetailsElement: W.HtmlElement, HTMLDialogElement: W.HtmlElement, HTMLDivElement: W.HtmlElement, HTMLEmbedElement: W.HtmlElement, HTMLFieldSetElement: W.HtmlElement, HTMLHRElement: W.HtmlElement, HTMLHeadElement: W.HtmlElement, HTMLHeadingElement: W.HtmlElement, HTMLHtmlElement: W.HtmlElement, HTMLIFrameElement: W.HtmlElement, HTMLImageElement: W.HtmlElement, HTMLInputElement: W.HtmlElement, HTMLLIElement: W.HtmlElement, HTMLLabelElement: W.HtmlElement, HTMLLegendElement: W.HtmlElement, HTMLLinkElement: W.HtmlElement, HTMLMapElement: W.HtmlElement, HTMLMediaElement: W.HtmlElement, HTMLMenuElement: W.HtmlElement, HTMLMetaElement: W.HtmlElement, HTMLMeterElement: W.HtmlElement, HTMLModElement: W.HtmlElement, HTMLOListElement: W.HtmlElement, HTMLObjectElement: W.HtmlElement, HTMLOptGroupElement: W.HtmlElement, HTMLOptionElement: W.HtmlElement, HTMLOutputElement: W.HtmlElement, HTMLParagraphElement: W.HtmlElement, HTMLParamElement: W.HtmlElement, HTMLPictureElement: W.HtmlElement, HTMLPreElement: W.HtmlElement, HTMLProgressElement: W.HtmlElement, HTMLQuoteElement: W.HtmlElement, HTMLScriptElement: W.HtmlElement, HTMLShadowElement: W.HtmlElement, HTMLSlotElement: W.HtmlElement, HTMLSourceElement: W.HtmlElement, HTMLSpanElement: W.HtmlElement, HTMLStyleElement: W.HtmlElement, HTMLTableCaptionElement: W.HtmlElement, HTMLTableCellElement: W.HtmlElement, HTMLTableDataCellElement: W.HtmlElement, HTMLTableHeaderCellElement: W.HtmlElement, HTMLTableColElement: W.HtmlElement, HTMLTableElement: W.HtmlElement, HTMLTableRowElement: W.HtmlElement, HTMLTableSectionElement: W.HtmlElement, HTMLTemplateElement: W.HtmlElement, HTMLTextAreaElement: W.HtmlElement, HTMLTimeElement: W.HtmlElement, HTMLTitleElement: W.HtmlElement, HTMLTrackElement: W.HtmlElement, HTMLUListElement: W.HtmlElement, HTMLUnknownElement: W.HtmlElement, HTMLVideoElement: W.HtmlElement, HTMLDirectoryElement: W.HtmlElement, HTMLFontElement: W.HtmlElement, HTMLFrameElement: W.HtmlElement, HTMLFrameSetElement: W.HtmlElement, HTMLMarqueeElement: W.HtmlElement, HTMLElement: W.HtmlElement, HTMLAnchorElement: W.AnchorElement, HTMLAreaElement: W.AreaElement, HTMLCanvasElement: W.CanvasElement, CanvasRenderingContext2D: W.CanvasRenderingContext2D, DOMException: W.DomException, Element: W.Element, AbortPaymentEvent: W.Event, AnimationEvent: W.Event, AnimationPlaybackEvent: W.Event, ApplicationCacheErrorEvent: W.Event, BackgroundFetchClickEvent: W.Event, BackgroundFetchEvent: W.Event, BackgroundFetchFailEvent: W.Event, BackgroundFetchedEvent: W.Event, BeforeInstallPromptEvent: W.Event, BeforeUnloadEvent: W.Event, BlobEvent: W.Event, CanMakePaymentEvent: W.Event, ClipboardEvent: W.Event, CloseEvent: W.Event, CustomEvent: W.Event, DeviceMotionEvent: W.Event, DeviceOrientationEvent: W.Event, ErrorEvent: W.Event, ExtendableEvent: W.Event, ExtendableMessageEvent: W.Event, FetchEvent: W.Event, FontFaceSetLoadEvent: W.Event, ForeignFetchEvent: W.Event, GamepadEvent: W.Event, HashChangeEvent: W.Event, InstallEvent: W.Event, MediaEncryptedEvent: W.Event, MediaKeyMessageEvent: W.Event, MediaQueryListEvent: W.Event, MediaStreamEvent: W.Event, MediaStreamTrackEvent: W.Event, MessageEvent: W.Event, MIDIConnectionEvent: W.Event, MIDIMessageEvent: W.Event, MutationEvent: W.Event, NotificationEvent: W.Event, PageTransitionEvent: W.Event, PaymentRequestEvent: W.Event, PaymentRequestUpdateEvent: W.Event, PopStateEvent: W.Event, PresentationConnectionAvailableEvent: W.Event, PresentationConnectionCloseEvent: W.Event, ProgressEvent: W.Event, PromiseRejectionEvent: W.Event, PushEvent: W.Event, RTCDataChannelEvent: W.Event, RTCDTMFToneChangeEvent: W.Event, RTCPeerConnectionIceEvent: W.Event, RTCTrackEvent: W.Event, SecurityPolicyViolationEvent: W.Event, SensorErrorEvent: W.Event, SpeechRecognitionError: W.Event, SpeechRecognitionEvent: W.Event, SpeechSynthesisEvent: W.Event, StorageEvent: W.Event, SyncEvent: W.Event, TrackEvent: W.Event, TransitionEvent: W.Event, WebKitTransitionEvent: W.Event, VRDeviceEvent: W.Event, VRDisplayEvent: W.Event, VRSessionEvent: W.Event, MojoInterfaceRequestEvent: W.Event, ResourceProgressEvent: W.Event, USBConnectionEvent: W.Event, IDBVersionChangeEvent: W.Event, AudioProcessingEvent: W.Event, OfflineAudioCompletionEvent: W.Event, WebGLContextEvent: W.Event, Event: W.Event, InputEvent: W.Event, EventTarget: W.EventTarget, HTMLFormElement: W.FormElement, MouseEvent: W.MouseEvent, DragEvent: W.MouseEvent, PointerEvent: W.MouseEvent, WheelEvent: W.MouseEvent, Document: W.Node, HTMLDocument: W.Node, Node: W.Node, HTMLSelectElement: W.SelectElement, CompositionEvent: W.UIEvent, FocusEvent: W.UIEvent, KeyboardEvent: W.UIEvent, TextEvent: W.UIEvent, TouchEvent: W.UIEvent, UIEvent: W.UIEvent, SVGAElement: P.SvgElement, SVGAnimateElement: P.SvgElement, SVGAnimateMotionElement: P.SvgElement, SVGAnimateTransformElement: P.SvgElement, SVGAnimationElement: P.SvgElement, SVGCircleElement: P.SvgElement, SVGClipPathElement: P.SvgElement, SVGDefsElement: P.SvgElement, SVGDescElement: P.SvgElement, SVGDiscardElement: P.SvgElement, SVGEllipseElement: P.SvgElement, SVGFEBlendElement: P.SvgElement, SVGFEColorMatrixElement: P.SvgElement, SVGFEComponentTransferElement: P.SvgElement, SVGFECompositeElement: P.SvgElement, SVGFEConvolveMatrixElement: P.SvgElement, SVGFEDiffuseLightingElement: P.SvgElement, SVGFEDisplacementMapElement: P.SvgElement, SVGFEDistantLightElement: P.SvgElement, SVGFEFloodElement: P.SvgElement, SVGFEFuncAElement: P.SvgElement, SVGFEFuncBElement: P.SvgElement, SVGFEFuncGElement: P.SvgElement, SVGFEFuncRElement: P.SvgElement, SVGFEGaussianBlurElement: P.SvgElement, SVGFEImageElement: P.SvgElement, SVGFEMergeElement: P.SvgElement, SVGFEMergeNodeElement: P.SvgElement, SVGFEMorphologyElement: P.SvgElement, SVGFEOffsetElement: P.SvgElement, SVGFEPointLightElement: P.SvgElement, SVGFESpecularLightingElement: P.SvgElement, SVGFESpotLightElement: P.SvgElement, SVGFETileElement: P.SvgElement, SVGFETurbulenceElement: P.SvgElement, SVGFilterElement: P.SvgElement, SVGForeignObjectElement: P.SvgElement, SVGGElement: P.SvgElement, SVGGeometryElement: P.SvgElement, SVGGraphicsElement: P.SvgElement, SVGImageElement: P.SvgElement, SVGLineElement: P.SvgElement, SVGLinearGradientElement: P.SvgElement, SVGMarkerElement: P.SvgElement, SVGMaskElement: P.SvgElement, SVGMetadataElement: P.SvgElement, SVGPathElement: P.SvgElement, SVGPatternElement: P.SvgElement, SVGPolygonElement: P.SvgElement, SVGPolylineElement: P.SvgElement, SVGRadialGradientElement: P.SvgElement, SVGRectElement: P.SvgElement, SVGScriptElement: P.SvgElement, SVGSetElement: P.SvgElement, SVGStopElement: P.SvgElement, SVGStyleElement: P.SvgElement, SVGElement: P.SvgElement, SVGSVGElement: P.SvgElement, SVGSwitchElement: P.SvgElement, SVGSymbolElement: P.SvgElement, SVGTSpanElement: P.SvgElement, SVGTextContentElement: P.SvgElement, SVGTextElement: P.SvgElement, SVGTextPathElement: P.SvgElement, SVGTextPositioningElement: P.SvgElement, SVGTitleElement: P.SvgElement, SVGUseElement: P.SvgElement, SVGViewElement: P.SvgElement, SVGGradientElement: P.SvgElement, SVGComponentTransferFunctionElement: P.SvgElement, SVGFEDropShadowElement: P.SvgElement, SVGMPathElement: P.SvgElement});
+    hunkHelpers.setOrUpdateLeafTags({CanvasGradient: true, CanvasPattern: true, DOMError: true, MediaError: true, NavigatorUserMediaError: true, OverconstrainedError: true, PositionError: true, SVGAnimatedNumberList: true, WebGLRenderingContext: true, WebGL2RenderingContext: true, SQLError: true, HTMLAudioElement: true, HTMLBRElement: true, HTMLBaseElement: true, HTMLBodyElement: true, HTMLButtonElement: true, HTMLContentElement: true, HTMLDListElement: true, HTMLDataElement: true, HTMLDataListElement: true, HTMLDetailsElement: true, HTMLDialogElement: true, HTMLDivElement: true, HTMLEmbedElement: true, HTMLFieldSetElement: true, HTMLHRElement: true, HTMLHeadElement: true, HTMLHeadingElement: true, HTMLHtmlElement: true, HTMLIFrameElement: true, HTMLImageElement: true, HTMLInputElement: true, HTMLLIElement: true, HTMLLabelElement: true, HTMLLegendElement: true, HTMLLinkElement: true, HTMLMapElement: true, HTMLMediaElement: true, HTMLMenuElement: true, HTMLMetaElement: true, HTMLMeterElement: true, HTMLModElement: true, HTMLOListElement: true, HTMLObjectElement: true, HTMLOptGroupElement: true, HTMLOptionElement: true, HTMLOutputElement: true, HTMLParagraphElement: true, HTMLParamElement: true, HTMLPictureElement: true, HTMLPreElement: true, HTMLProgressElement: true, HTMLQuoteElement: true, HTMLScriptElement: true, HTMLShadowElement: true, HTMLSlotElement: true, HTMLSourceElement: true, HTMLSpanElement: true, HTMLStyleElement: true, HTMLTableCaptionElement: true, HTMLTableCellElement: true, HTMLTableDataCellElement: true, HTMLTableHeaderCellElement: true, HTMLTableColElement: true, HTMLTableElement: true, HTMLTableRowElement: true, HTMLTableSectionElement: true, HTMLTemplateElement: true, HTMLTextAreaElement: true, HTMLTimeElement: true, HTMLTitleElement: true, HTMLTrackElement: true, HTMLUListElement: true, HTMLUnknownElement: true, HTMLVideoElement: true, HTMLDirectoryElement: true, HTMLFontElement: true, HTMLFrameElement: true, HTMLFrameSetElement: true, HTMLMarqueeElement: true, HTMLElement: false, HTMLAnchorElement: true, HTMLAreaElement: true, HTMLCanvasElement: true, CanvasRenderingContext2D: true, DOMException: true, Element: false, AbortPaymentEvent: true, AnimationEvent: true, AnimationPlaybackEvent: true, ApplicationCacheErrorEvent: true, BackgroundFetchClickEvent: true, BackgroundFetchEvent: true, BackgroundFetchFailEvent: true, BackgroundFetchedEvent: true, BeforeInstallPromptEvent: true, BeforeUnloadEvent: true, BlobEvent: true, CanMakePaymentEvent: true, ClipboardEvent: true, CloseEvent: true, CustomEvent: true, DeviceMotionEvent: true, DeviceOrientationEvent: true, ErrorEvent: true, ExtendableEvent: true, ExtendableMessageEvent: true, FetchEvent: true, FontFaceSetLoadEvent: true, ForeignFetchEvent: true, GamepadEvent: true, HashChangeEvent: true, InstallEvent: true, MediaEncryptedEvent: true, MediaKeyMessageEvent: true, MediaQueryListEvent: true, MediaStreamEvent: true, MediaStreamTrackEvent: true, MessageEvent: true, MIDIConnectionEvent: true, MIDIMessageEvent: true, MutationEvent: true, NotificationEvent: true, PageTransitionEvent: true, PaymentRequestEvent: true, PaymentRequestUpdateEvent: true, PopStateEvent: true, PresentationConnectionAvailableEvent: true, PresentationConnectionCloseEvent: true, ProgressEvent: true, PromiseRejectionEvent: true, PushEvent: true, RTCDataChannelEvent: true, RTCDTMFToneChangeEvent: true, RTCPeerConnectionIceEvent: true, RTCTrackEvent: true, SecurityPolicyViolationEvent: true, SensorErrorEvent: true, SpeechRecognitionError: true, SpeechRecognitionEvent: true, SpeechSynthesisEvent: true, StorageEvent: true, SyncEvent: true, TrackEvent: true, TransitionEvent: true, WebKitTransitionEvent: true, VRDeviceEvent: true, VRDisplayEvent: true, VRSessionEvent: true, MojoInterfaceRequestEvent: true, ResourceProgressEvent: true, USBConnectionEvent: true, IDBVersionChangeEvent: true, AudioProcessingEvent: true, OfflineAudioCompletionEvent: true, WebGLContextEvent: true, Event: false, InputEvent: false, EventTarget: false, HTMLFormElement: true, MouseEvent: true, DragEvent: true, PointerEvent: true, WheelEvent: true, Document: true, HTMLDocument: true, Node: false, HTMLSelectElement: true, CompositionEvent: true, FocusEvent: true, KeyboardEvent: true, TextEvent: true, TouchEvent: true, UIEvent: false, SVGAElement: true, SVGAnimateElement: true, SVGAnimateMotionElement: true, SVGAnimateTransformElement: true, SVGAnimationElement: true, SVGCircleElement: true, SVGClipPathElement: true, SVGDefsElement: true, SVGDescElement: true, SVGDiscardElement: true, SVGEllipseElement: true, SVGFEBlendElement: true, SVGFEColorMatrixElement: true, SVGFEComponentTransferElement: true, SVGFECompositeElement: true, SVGFEConvolveMatrixElement: true, SVGFEDiffuseLightingElement: true, SVGFEDisplacementMapElement: true, SVGFEDistantLightElement: true, SVGFEFloodElement: true, SVGFEFuncAElement: true, SVGFEFuncBElement: true, SVGFEFuncGElement: true, SVGFEFuncRElement: true, SVGFEGaussianBlurElement: true, SVGFEImageElement: true, SVGFEMergeElement: true, SVGFEMergeNodeElement: true, SVGFEMorphologyElement: true, SVGFEOffsetElement: true, SVGFEPointLightElement: true, SVGFESpecularLightingElement: true, SVGFESpotLightElement: true, SVGFETileElement: true, SVGFETurbulenceElement: true, SVGFilterElement: true, SVGForeignObjectElement: true, SVGGElement: true, SVGGeometryElement: true, SVGGraphicsElement: true, SVGImageElement: true, SVGLineElement: true, SVGLinearGradientElement: true, SVGMarkerElement: true, SVGMaskElement: true, SVGMetadataElement: true, SVGPathElement: true, SVGPatternElement: true, SVGPolygonElement: true, SVGPolylineElement: true, SVGRadialGradientElement: true, SVGRectElement: true, SVGScriptElement: true, SVGSetElement: true, SVGStopElement: true, SVGStyleElement: true, SVGElement: true, SVGSVGElement: true, SVGSwitchElement: true, SVGSymbolElement: true, SVGTSpanElement: true, SVGTextContentElement: true, SVGTextElement: true, SVGTextPathElement: true, SVGTextPositioningElement: true, SVGTitleElement: true, SVGUseElement: true, SVGViewElement: true, SVGGradientElement: true, SVGComponentTransferFunctionElement: true, SVGFEDropShadowElement: true, SVGMPathElement: true});
   })();
   convertAllToFastObject(holders);
   convertToFastObject($);
@@ -3481,10 +3786,10 @@
   })(function(currentScript) {
     init.currentScript = currentScript;
     if (typeof dartMainRunner === "function")
-      dartMainRunner(Y.main, []);
+      dartMainRunner(L.main, []);
     else
-      Y.main([]);
+      L.main([]);
   });
 })();
 
-//# sourceMappingURL=roc_flag.js.map
+//# sourceMappingURL=flag.js.map
