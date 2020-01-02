@@ -43,10 +43,10 @@ main() {
     // 之後就可以根據 type 與 number 執行各數列元素的重量單位轉換
     
     if (type == "K"|| type == "k"){
-      print("$number kg = ${kgtolb(number).toStringAsFixed(2)} lb");
+      print("$number kg = ${kgtolb(number).toStringAsFixed(4)} lb");
     }
     else{
-      print("$number lb = ${lbtokg(number).toStringAsFixed(2)} kg");
+      print("$number lb = ${lbtokg(number).toStringAsFixed(4)} kg");
     }
       
   } 
