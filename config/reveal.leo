@@ -25,15 +25,16 @@
 <v t="leo.20180902120523.12"><vh>投影片快捷鍵</vh></v>
 </v>
 <v t="leo.20180902120523.13"><vh>目錄</vh>
-<v t="leo.20180902120523.14"><vh>目錄</vh>
-<v t="leo.20180902120523.15"><vh>LaTeX 格式方程式</vh></v>
-</v>
+<v t="leo.20180902120523.14"><vh>目錄</vh></v>
 </v>
 <v t="leo.20200108214100.1"><vh>溫度</vh>
 <v t="leo.20200108214106.1"><vh>溫度</vh></v>
 </v>
 <v t="leo.20200108214110.1"><vh>重量</vh>
 <v t="leo.20200108214114.1"><vh>重量</vh></v>
+</v>
+<v t="leo.20200108214634.1"><vh>國旗</vh>
+<v t="leo.20200108214639.1"><vh>國旗</vh></v>
 </v>
 <v t="leo.20200108214118.1"><vh>心得</vh>
 <v t="leo.20200108214122.1"><vh>心得</vh></v>
@@ -71,14 +72,10 @@ Created by [40823221](http://lab.kmol.info/)
 </t>
 <t tx="leo.20180902120523.12"># 投影片快捷鍵
 
-* 利用箭頭上下前後換頁
-* 按 f 鍵進入全螢幕模式 (full screen)
-* 按 s 鍵可以顯示投影片筆記 (show)
-* 按 o 鍵可以切換單張或全域檢視 (overview)
-* 按 b 或 . 鍵可以切換螢幕黑屏 (black)
-* 按 Esc 可以退出全螢幕或全域檢視 (Escape)
 
-</t>
+溫度
+重量
+心得</t>
 <t tx="leo.20180902120523.13">&lt;section&gt;
 @others
 &lt;/section&gt;
@@ -94,13 +91,6 @@ Created by [40823221](http://lab.kmol.info/)
 
 
 						
-</t>
-<t tx="leo.20180902120523.15"># 數學符號與方程式
-
-Inline math equations go in like so: $\omega = d\phi / dt$. Display
-math should get its own line and be put in in double-dollarsigns:
-
-$$I = \int \rho R^{2} dV$$
 </t>
 <t tx="leo.20180902120523.2"></t>
 <t tx="leo.20180902120523.3">@language xml
@@ -279,6 +269,7 @@ vertical: body pane on the botton</t>
 </t>
 <t tx="leo.20200108214106.1">&lt;溫度&gt;
 
+
     &lt;iframe src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/temp2&amp;theme=dark" width="800" height="550"&gt;&lt;/iframe&gt;
     &lt;/script&gt;
 &lt;/section&gt;
@@ -300,6 +291,18 @@ vertical: body pane on the botton</t>
 </t>
 <t tx="leo.20200108214122.1">&lt;心得&gt;
 
+
+
 這學期做了許多有關於程式方面的實作，像是在建網頁或是繪製國旗都對程式語言有更多的認識，希望未來能夠將所學的知識善加利用!!!</t>
+<t tx="leo.20200108214634.1">&lt;section&gt;
+@others
+&lt;/section&gt;
+</t>
+<t tx="leo.20200108214639.1">&lt;國旗&gt;
+
+
+&lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823222&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/flag&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/script&gt;
+&lt;/section&gt;</t>
 </tnodes>
 </leo_file>
