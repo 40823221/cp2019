@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Created by Leo: http://leoeditor.com/leo_toc.html -->
 <leo_file xmlns:leo="http://leoeditor.com/namespaces/leo-python-editor/1.1" >
-<leo_header file_format="2" tnodes="0" max_tnode_index="0" clone_windows="0"/>
-<globals body_outline_ratio="0.5" body_secondary_ratio="0.5">
-	<global_window_position top="50" left="50" height="500" width="700"/>
-	<global_log_window_position top="0" left="0" height="0" width="0"/>
-</globals>
+<leo_header file_format="2"/>
+<globals/>
 <preferences/>
 <find_panel_settings/>
 <vnodes>
@@ -13,30 +10,33 @@
 <v t="leo.20180902120538.2"><vh>@data qt-gui-plugin-style-sheet</vh></v>
 <v t="leo.20180902120538.3"><vh>@string initial_split_orientation = horizontal</vh></v>
 </v>
-<v t="leo.20180902120523.1" a="E"><vh>編輯 reveal</vh>
-<v t="leo.20180902120523.2" a="E"><vh>@path ./../reveal</vh>
-<v t="leo.20180902120523.3" a="E"><vh>@clean index.html</vh>
-<v t="leo.20180902120523.4" a="E"><vh>html</vh>
+<v t="leo.20180902120523.1"><vh>編輯 reveal</vh>
+<v t="leo.20180902120523.2"><vh>@path ./../reveal</vh>
+<v t="leo.20180902120523.3"><vh>@clean index.html</vh>
+<v t="leo.20180902120523.4"><vh>html</vh>
 <v t="leo.20180902120523.5"><vh>head</vh></v>
-<v t="leo.20180902120523.6" a="E"><vh>body</vh>
-<v t="leo.20180902120523.7" a="E"><vh>reveal div</vh>
-<v t="leo.20180902120523.8" a="E"><vh>slides div</vh>
-<v t="leo.20180902120523.9" a="E"><vh>封面投影片</vh>
+<v t="leo.20180902120523.6"><vh>body</vh>
+<v t="leo.20180902120523.7"><vh>reveal div</vh>
+<v t="leo.20180902120523.8"><vh>slides div</vh>
+<v t="leo.20180902120523.9"><vh>封面投影片</vh>
 <v t="leo.20180902120523.10"><vh>封面投影片內容</vh></v>
 </v>
-<v t="leo.20180902120523.11" a="E"><vh>快捷鍵</vh>
+<v t="leo.20180902120523.11"><vh>快捷鍵</vh>
 <v t="leo.20180902120523.12"><vh>投影片快捷鍵</vh></v>
 </v>
-<v t="leo.20180902120523.13"><vh>各式內容引用範例</vh>
-<v t="leo.20180902120523.14" a="E"><vh>導入數學符號與方程式</vh>
+<v t="leo.20180902120523.13"><vh>目錄</vh>
+<v t="leo.20180902120523.14"><vh>目錄</vh>
 <v t="leo.20180902120523.15"><vh>LaTeX 格式方程式</vh></v>
 </v>
-<v t="leo.20180902120523.16" a="E"><vh>導入縮排程式碼</vh>
-<v t="leo.20180902120523.17"><vh>引用程式碼</vh></v>
 </v>
-<v t="leo.20180902120523.18" a="E"><vh>導入影片</vh>
-<v t="leo.20180902120523.19"><vh>iframe 導入影片</vh></v>
+<v t="leo.20200108214100.1"><vh>溫度</vh>
+<v t="leo.20200108214106.1"><vh>溫度</vh></v>
 </v>
+<v t="leo.20200108214110.1"><vh>重量</vh>
+<v t="leo.20200108214114.1"><vh>重量</vh></v>
+</v>
+<v t="leo.20200108214118.1"><vh>心得</vh>
+<v t="leo.20200108214122.1"><vh>心得</vh></v>
 </v>
 </v>
 </v>
@@ -48,15 +48,15 @@
 </vnodes>
 <tnodes>
 <t tx="leo.20180902120523.1"></t>
-<t tx="leo.20180902120523.10">## CMSimfly 網際內容管理
+<t tx="leo.20180902120523.10">## 40823221 網誌
 
 ### KMOLab
 
 &lt;small&gt;
-Created by [KMOLab](http://lab.kmol.info/)
+Created by [40823221](http://lab.kmol.info/)
 &lt;/small&gt;
 
-[CMSimfly 網誌](./../blog/index.html)
+[40823221 網誌](./../blog/index.html)
 
 
 </t>
@@ -101,60 +101,6 @@ Inline math equations go in like so: $\omega = d\phi / dt$. Display
 math should get its own line and be put in in double-dollarsigns:
 
 $$I = \int \rho R^{2} dV$$
-</t>
-<t tx="leo.20180902120523.16">&lt;section data-markdown&gt;
-    &lt;script type="text/template"&gt;
-&lt;!-- 請注意, @others 不可以內縮 --&gt;
-@others
-    &lt;/script&gt;
-&lt;/section&gt;
-
-
-
-						
-</t>
-<t tx="leo.20180902120523.17">## 利用 Markdown 寫投影片
-以下利用 Markdown 格式展示 Python 程式碼:
-```
-@language python
-# use threading and subprocess to threading the make process
-import os
-import subprocess
-import threading
-
-def domake():
-    
-    path = "../exposed/api/exposed"
-    ubuntu = "../Ubuntu"
-    
-    # create obj path
-    
-    if not os.path.exists(path+"/../obj"):
-        os.makedirs(path+"/../obj")
-    
-    subprocess.call(["make", "clean"], cwd=path)
-    subprocess.call("make", cwd=path)
-    subprocess.call(["cp", "{libslvs.so, _slvs.so, slvs.py}", ubuntu], cwd=path)
-    subprocess.call(["python3", "circle_ex.py"], cwd=path+"/"+ubuntu)
-    
-make = threading.Thread(target=domake)
-make.start()
-```
-</t>
-<t tx="leo.20180902120523.18">&lt;section data-markdown&gt;
-    &lt;script type="text/template"&gt;
-@others
-    &lt;/script&gt;
-&lt;/section&gt;
-
-
-						
-</t>
-<t tx="leo.20180902120523.19">## 使用 iframe 導入影片
-
-### 導入影片 template
-
-&lt;iframe src="https://player.vimeo.com/video/183950627" width="640" height="492" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
 </t>
 <t tx="leo.20180902120523.2"></t>
 <t tx="leo.20180902120523.3">@language xml
@@ -326,5 +272,34 @@ QLineEdit#editorLabel {
 }</t>
 <t tx="leo.20180902120538.3">horizontal: body pane to the left
 vertical: body pane on the botton</t>
+<t tx="leo.20200108214100.1">&lt;section&gt;
+@others
+&lt;/section&gt;
+
+</t>
+<t tx="leo.20200108214106.1">&lt;溫度&gt;
+
+    &lt;iframe src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/temp2&amp;theme=dark" width="800" height="550"&gt;&lt;/iframe&gt;
+    &lt;/script&gt;
+&lt;/section&gt;
+
+</t>
+<t tx="leo.20200108214110.1">&lt;section&gt;
+@others
+&lt;/section&gt;
+</t>
+<t tx="leo.20200108214114.1">&lt;重量&gt;
+
+&lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/weight_change&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/script&gt;
+&lt;/section&gt;
+&lt;/section&gt;</t>
+<t tx="leo.20200108214118.1">&lt;section&gt;
+@others
+&lt;/section&gt;
+</t>
+<t tx="leo.20200108214122.1">&lt;心得&gt;
+
+這學期做了許多有關於程式方面的實作，像是在建網頁或是繪製國旗都對程式語言有更多的認識，希望未來能夠將所學的知識善加利用!!!</t>
 </tnodes>
 </leo_file>
