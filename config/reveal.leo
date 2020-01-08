@@ -24,9 +24,6 @@
 <v t="leo.20180902120523.11"><vh>目錄</vh>
 <v t="leo.20180902120523.12"><vh>目錄1</vh></v>
 </v>
-<v t="leo.20200108214100.1"><vh>溫度</vh>
-<v t="leo.20200108214106.1"><vh>溫度</vh></v>
-</v>
 <v t="leo.20200108214110.1"><vh>重量</vh>
 <v t="leo.20200108214114.1"><vh>重量</vh></v>
 </v>
@@ -241,20 +238,6 @@ QLineEdit#editorLabel {
 }</t>
 <t tx="leo.20180902120538.3">horizontal: body pane to the left
 vertical: body pane on the botton</t>
-<t tx="leo.20200108214100.1">&lt;section data-markdown&gt;
-    &lt;script type="text/template"&gt;
-@others
-    &lt;/script&gt;
-&lt;/section&gt;</t>
-<t tx="leo.20200108214106.1">&lt;溫度&gt;
-
-&lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/CF&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
-    &lt;/script&gt;
-&lt;/section&gt;
-
-
-
-</t>
 <t tx="leo.20200108214110.1">&lt;section data-markdown&gt;
     &lt;script type="text/template"&gt;
 @others
