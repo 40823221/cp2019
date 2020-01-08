@@ -249,7 +249,7 @@ vertical: body pane on the botton</t>
 <t tx="leo.20200108214106.1">&lt;溫度&gt;
 
 
-&lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823222&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/cf&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/cf&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
     &lt;/script&gt;
 &lt;/section&gt;
 
@@ -264,10 +264,11 @@ vertical: body pane on the botton</t>
 &lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/weight_change&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
     &lt;/script&gt;
 &lt;/section&gt;</t>
-<t tx="leo.20200108214118.1">&lt;section&gt;
+<t tx="leo.20200108214118.1">&lt;section data-markdown&gt;
+    &lt;script type="text/template"&gt;
 @others
-&lt;/section&gt;
-</t>
+    &lt;/script&gt;
+&lt;/section&gt;</t>
 <t tx="leo.20200108214122.1">&lt;心得&gt;
 
 
