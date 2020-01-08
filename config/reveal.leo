@@ -69,11 +69,10 @@ Created by [40823221](http://lab.kmol.info/)
 </t>
 <t tx="leo.20180902120523.12"># 目錄
 
-
-*溫度
-*重量
-*國旗
-*心得</t>
+***溫度
+***重量
+***國旗
+***心得</t>
 <t tx="leo.20180902120523.2"></t>
 <t tx="leo.20180902120523.3">@language xml
 @tabwidth -4
@@ -265,7 +264,6 @@ vertical: body pane on the botton</t>
 
 &lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/weight_change&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
     &lt;/script&gt;
-&lt;/section&gt;
 &lt;/section&gt;</t>
 <t tx="leo.20200108214118.1">&lt;section&gt;
 @others
