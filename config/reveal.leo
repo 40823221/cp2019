@@ -24,9 +24,6 @@
 <v t="leo.20180902120523.11"><vh>目錄</vh>
 <v t="leo.20180902120523.12"><vh>目錄</vh></v>
 </v>
-<v t="leo.20180902120523.13"><vh>目錄</vh>
-<v t="leo.20180902120523.14"><vh>目錄</vh></v>
-</v>
 <v t="leo.20200108214100.1"><vh>溫度</vh>
 <v t="leo.20200108214106.1"><vh>溫度</vh></v>
 </v>
@@ -73,26 +70,10 @@ Created by [40823221](http://lab.kmol.info/)
 <t tx="leo.20180902120523.12"># 目錄
 
 
- 溫度
- 重量
- 國旗
- 心得</t>
-<t tx="leo.20180902120523.13">&lt;section&gt;
-@others
-&lt;/section&gt;
-
-</t>
-<t tx="leo.20180902120523.14">&lt;section data-markdown&gt;
-    &lt;script type="text/template"&gt;
-&lt;!-- 請注意, @others 不可以內縮 --&gt;
-@others
-    &lt;/script&gt;
-&lt;/section&gt;
-
-
-
-						
-</t>
+*溫度
+*重量
+*國旗
+*心得</t>
 <t tx="leo.20180902120523.2"></t>
 <t tx="leo.20180902120523.3">@language xml
 @tabwidth -4
