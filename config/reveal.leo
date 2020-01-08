@@ -63,16 +63,14 @@ Created by [40823221](http://lab.kmol.info/)
 @others
     &lt;/script&gt;
 &lt;/section&gt;
-
-
 						
 </t>
 <t tx="leo.20180902120523.12"># 目錄
 
-***溫度
-***重量
-***國旗
-***心得</t>
+*溫度
+*重量
+*國旗
+*心得</t>
 <t tx="leo.20180902120523.2"></t>
 <t tx="leo.20180902120523.3">@language xml
 @tabwidth -4
@@ -243,11 +241,11 @@ QLineEdit#editorLabel {
 }</t>
 <t tx="leo.20180902120538.3">horizontal: body pane to the left
 vertical: body pane on the botton</t>
-<t tx="leo.20200108214100.1">&lt;section&gt;
+<t tx="leo.20200108214100.1">&lt;section data-markdown&gt;
+    &lt;script type="text/template"&gt;
 @others
-&lt;/section&gt;
-
-</t>
+    &lt;/script&gt;
+&lt;/section&gt;</t>
 <t tx="leo.20200108214106.1">&lt;溫度&gt;
 
 
@@ -256,10 +254,11 @@ vertical: body pane on the botton</t>
 &lt;/section&gt;
 
 </t>
-<t tx="leo.20200108214110.1">&lt;section&gt;
+<t tx="leo.20200108214110.1">&lt;section data-markdown&gt;
+    &lt;script type="text/template"&gt;
 @others
-&lt;/section&gt;
-</t>
+    &lt;/script&gt;
+&lt;/section&gt;</t>
 <t tx="leo.20200108214114.1">&lt;重量&gt;
 
 &lt;iframe width="800" height="550" src="https://dartpad.github.io/embed-html.html?gh_owner=40823221&amp;gh_repo=cp2019&amp;gh_path=downloads/dart_ex/weight_change&amp;theme=dark" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
@@ -274,10 +273,11 @@ vertical: body pane on the botton</t>
 
 
 這學期做了許多有關於程式方面的實作，像是在建網頁或是繪製國旗都對程式語言有更多的認識，希望未來能夠將所學的知識善加利用!!!</t>
-<t tx="leo.20200108214634.1">&lt;section&gt;
+<t tx="leo.20200108214634.1">&lt;section data-markdown&gt;
+    &lt;script type="text/template"&gt;
 @others
-&lt;/section&gt;
-</t>
+    &lt;/script&gt;
+&lt;/section&gt;</t>
 <t tx="leo.20200108214639.1">&lt;國旗&gt;
 
 
